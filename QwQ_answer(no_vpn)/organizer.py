@@ -17,7 +17,7 @@ def clear_folder(folder_path):
 
 def merge_md_files():
     """按特定顺序合并md文件"""
-    md_files = glob.glob(os.path.join("output", "image_*.md"))
+    md_files = glob.glob(os.path.join("output", "img_*.md"))
     if not md_files:
         print("😮 没有找到可合并的md文件~")
         return False
@@ -27,7 +27,7 @@ def merge_md_files():
     for file in md_files:
         basename = os.path.basename(file)
         try:
-            num = int(basename.replace("image_", "").replace(".md", ""))
+            num = int(basename.replace("img_", "").replace(".md", ""))
             file_dict[num] = file
         except ValueError:
             print(f"😕 无法解析文件名: {basename}")
@@ -39,7 +39,7 @@ def merge_md_files():
     # 获取最大编号，用于确定开始文件
     max_num = max(file_dict.keys())
 
-    # 按特定顺序排列: image_n.md + image_1.md + ... + image_(n-1).md
+    # 按特定顺序排列: img_n.md + img_1.md + ... + img_(n-1).md
     order = [max_num] + list(range(1, max_num))
 
     # 合并文件内容
